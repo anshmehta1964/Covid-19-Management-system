@@ -1,0 +1,48 @@
+<?php
+require 'database/dbconnect.php';
+
+
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    $name=$_POST["name"];
+    $age=$_POST["age"];
+  
+    $contact=$_POST["contact"];
+    $aadhar=$_POST["aadhar"];
+    $city=$_POST["city"];
+   $date = $_POST["date"];
+    
+  
+    $email=$_POST["email"];
+    $gender=$_POST['gender'];
+    
+  $sql = "INSERT INTO `ragistration_2` (`sn`, `name`, `age`, `contact`, `aadhar`, `city`, `email`, `gender`, `status`) VALUES (NULL, '$name', '$age', '$contact', '$aadhar', '$city','$email', '$gender', 'Approved');";
+    $result=mysqli_query($con,$sql);
+  
+  $done=true;
+    if($result){
+        header('location: success.php');
+        // echo "done";
+    }
+  
+    else{
+        echo "cant".mysqli_error($con);
+    }
+  
+  
+  }
+  
+  
+
+?>
+
+
+<?php
+$to      = $email;
+$subject = 'Vaccine Registration';
+$message = 'Hello ' $name ' Your Vaccine Slot Registration For Second Dose Is completed. Your Vaccine Center is' . $center . 'Thanks For Registration For More information about center location visit our center page on home screen';
+$headers = 'From: vaccineregistration@yashmurani.online';
+
+mail($to, $subject, $message, $headers);
+?>
